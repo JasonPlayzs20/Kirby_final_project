@@ -1,5 +1,5 @@
-from Animation import SpriteSheet
-import pygame
+from kirby_animation_state.Animation import SpriteSheet
+
 
 class Kirby(SpriteSheet):
     def __init__(self, image, frames, width, height, scale, colour, running, total_frame):
