@@ -2,7 +2,7 @@ import pygame
 
 
 class SpriteSheet():
-    def __init__(self, image, frames, width, height, scale, colour, running, total_frame):
+    def __init__(self, image, frames, width, height, scale, colour, running, total_frame, left):
         self.sheet = image
         self.frames = frames
         self.width = width
@@ -11,6 +11,7 @@ class SpriteSheet():
         self.colour = colour
         self.running = running
         self.total_frame = total_frame
+        left = left
 
     def get_image(self, frame, scale):
         image = pygame.Surface((self.width, self.height), pygame.SRCALPHA).convert_alpha()
@@ -20,7 +21,7 @@ class SpriteSheet():
         image.set_colorkey(self.colour)
         return image
 
-    def start_animation(self, scale, display, x=0, y=0, frame=0):
+    def start_animation(self, scale, display, left, x=0, y=0, frame=0):
         if self.running == False:
             self.frames = frame
         self.running = True
@@ -30,13 +31,17 @@ class SpriteSheet():
         print(self.total_frame)
         if self.frames == self.total_frame - 1:
             self.frames = 0
-            display.blit(self.get_image(self.frames, self.scale), (x, y))
-            pygame.display.update()
+            image_xy = (x,y)
+            image = self.get_image(self.frames, self.scale)
+            if left == True:
+                image = pygame.transform.flip(image,True,False)
+            display.blit(image, image_xy)
             self.frames += 1
         else:
             display.blit(self.get_image(self.frames, self.scale), (0, 0))
-            pygame.display.update()
             self.frames += 1
+
+        pygame.display.update()
 
     def stop_animation(self):
         self.running = False

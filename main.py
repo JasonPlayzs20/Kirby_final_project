@@ -1,5 +1,6 @@
 import pygame
 
+from entities.kirby_entity import Kirby_Entity
 from kirby_animation_state.idle import Idle
 from kirby_animation_state.walk import Walk
 
@@ -16,22 +17,12 @@ BLACK = (255, 255, 255)
 sprite_sheet_image = pygame.image.load("d4pnix0-4054eedb-e686-4e39-96c1-227b7c246bbf (2) - Copy.png").convert_alpha()
 
 
-def get_image(sheet, frame, width, height, scale, colour):
-    image = pygame.Surface((width, height), pygame.SRCALPHA).convert_alpha()
-    image.blit(sheet, (0, 0), ((frame * width) + 4, 0, width, height))
-    image = pygame.transform.scale(image, (width * scale, height * scale))
-    image.set_colorkey(colour)
-    return image
-
-
-# frame0 = get_image(sprite_sheet_image,0,31,31,3, BLACK)
-
-
 run = True
 frame = 0
 # sprite_sheet = Animation.SpriteSheet(sprite_sheet_image)
-idle = Idle()
-walk = Walk()
+# idle = Idle()
+# walk = Walk()
+kirby = Kirby_Entity(20,3,0,0,display)
 while run:
     clock.tick(8)
     display.fill(BG)
@@ -40,4 +31,5 @@ while run:
             run = False
             pygame.quit()
     print("updated")
-    walk.start_animation(3, display)
+    # walk.start_animation(3, display)
+    kirby.go_left()
