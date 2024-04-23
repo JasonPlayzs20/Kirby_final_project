@@ -20,8 +20,8 @@ run = True
 frame = 0
 # sprite_sheet = Animation.SpriteSheet(sprite_sheet_image)
 # idle = Idle()
-# walk = Walk()
-kirby = Kirby_Entity(20, 3, 0, 0, display)
+walk = Walk()
+kirby = Kirby_Entity(20, 7, 0, 0, display) #SCALE NOT WORK
 tick = 0
 while run:
     clock.tick(8)
@@ -30,15 +30,16 @@ while run:
         if event.type == pygame.QUIT:
             run = False
             pygame.quit()
-    print("updated")
+    print("max is gay")
     # walk.start_animation(3, display)
     # kirby.go_right()
-    # if tick < 21:
-    #     kirby.go_right()
-    #
-    # if tick > 21:
-    #     kirby.go_left()
-    # if tick > 40:
-    #     tick = 0
-    # tick +=1
-    kirby.idle()
+    if tick < 21:
+        kirby.go_right()
+
+    if tick > 21:
+        kirby.go_left()
+    if tick > 40:
+        tick = 0
+    tick +=1
+
+    # kirby.idle()
