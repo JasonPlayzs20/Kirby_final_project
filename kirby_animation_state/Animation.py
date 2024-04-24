@@ -24,14 +24,16 @@ class SpriteSheet():
         return image
 
     def start_animation(self, scale, display, left = False, x=0, y=0, frame=0):
-        print(x)
+        print(self.running)
         if self.running == False:
             self.frames = frame
+            self.running = True
+            print("reset")
         self.running = True
         self.scale = scale
         if self.running == False:
             return
-        print(self.total_frame)
+        print(self.frames)
         if self.frames == self.total_frame - 1:
             self.frames = 0
             image_xy = (x,y)

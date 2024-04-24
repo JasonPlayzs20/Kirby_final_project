@@ -34,10 +34,11 @@ while run:
     # walk.start_animation(3, display)
     # kirby.go_right()
     if tick < 21:
-        kirby.go_right()
-
+        # kirby.go_right()
+        kirby.sucked_walk_right()
     if tick > 21:
-        kirby.go_left()
+        # kirby.go_left()
+        kirby.sucked_walk_left()
     if tick > 40:
         tick = 0
     tick +=1
