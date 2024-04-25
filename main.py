@@ -38,20 +38,26 @@ while run:
 
 
 
-    kirby.jump(2)
+    # kirby.jump(2)
 
 
 
     # walk.start_animation(3, display)
     # kirby.go_right()
-    # if tick < 21:
-    #     # kirby.go_right()
-    #     kirby.go_right()
-    # if tick > 21:
-    #     # kirby.go_left()
-    #     kirby.sucked_walk_left()
-    # if tick > 40:
-    #     tick = 0
-    # tick +=1
+    if kirby.jumping == True:
+        continue
+    if tick < 21:
+        # kirby.go_right()
+        kirby.go_right()
+        print(kirby.left)
+    if tick > 21:
+        # kirby.go_left()
+        kirby.sucked_walk_left()
+        print(kirby.left)
+    if tick > 40:
+        tick = 0
+        if kirby.jumping == False:
+            kirby.jump(2)
+    tick +=1
 
     # kirby.idle()

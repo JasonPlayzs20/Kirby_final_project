@@ -4,6 +4,7 @@ import pygame
 
 
 class Entity:
+    clock = pygame.time.Clock()
     def __init__(self, health, size, x, y, display, walk_animation, jump_animation, entity_class):
         self.health = health
         self.size = size
@@ -15,42 +16,56 @@ class Entity:
         self.entity_class = entity_class
         self.down = False
         self.jump_c = 10
-    def go_left(self, left = True):
+        self.left = False
+        self.jumping = False
+    def go_left(self):
+        self.left = True
         print(self.x)
-        self.walk_animation.start_animation(3,self.display, left, x=self.x, y = self.y)
+        self.walk_animation.set_left(True)
+        self.walk_animation.start_animation(3,self.display, x=self.x, y = self.y)
         self.x -= 4
 
     def go_right(self):
+        self.left = False
+        self.walk_animation.set_left(False)
         self.walk_animation.start_animation(3,self.display, x=self.x, y = self.y)
         self.x += 11
-    def get_image(self, frame, scale, left, width, height, sheet):
+    def get_image(self, frame, scale, width, height, sheet):
         image = pygame.Surface((width, height), pygame.SRCALPHA).convert_alpha()
         image.blit(pygame.image.load(sheet).convert_alpha(), (0, 0),
                    ((frame * width), 0, width, height))
         image = pygame.transform.scale(image, (width * scale, height * scale))
-        if left == True:
+        if self.left == True:
             image = pygame.transform.flip(image,True,False)
         image.set_colorkey((255,255,255))
         return image
     def jump(self, height):
-        print("hi")
-        if self.jump_c >= -10:
-            neg = 1
-            image = self.get_image(0, 3, left=False, width=24, height=21, sheet="kirby_animation_state/kirby_jump.png")
+        self.jumping = True
+        while self.jumping == True:
+            self.clock.tick(10)
+            self.jump_animation.set_left(self.left)
+            if self.jump_c >= -10:
+                neg = 1
+                image = self.get_image(0, 3, width=24, height=21, sheet="kirby_animation_state/kirby_jump.png")
 
 
-            if self.jump_c < 0:
-                neg = -1
-                self.jump_animation.start_animation(3, self.display, x=self.x, y=self.y)
+                if self.jump_c < 0:
+                    neg = -1
+                    self.jump_animation.start_animation(3, self.display, x=self.x, y=self.y)
+                else:
+                    self.display.blit(image, (self.x, self.y))
+                self.y -=(self.jump_c**2)/height*neg
+                self.jump_c-=1
+                pygame.display.update()
+
             else:
-                self.display.blit(image, (self.x, self.y))
-            self.y -=(self.jump_c**2)/height*neg
-            self.jump_c-=1
-            pygame.display.update()
-
-        else:
-            self.jump_c = 10
-
+                image = self.get_image(9, 3, width=24, height=21, sheet="kirby_animation_state/kirby_jump.png")
+                self.display.blit(image,(self.x,self.y))
+                pygame.display.update()
+                print("yes")
+                self.jump_c = 10
+                self.jumping = False
+            self.display.fill((50, 70, 50))
 
 
 
