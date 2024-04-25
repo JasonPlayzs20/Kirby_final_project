@@ -1,5 +1,6 @@
 from kirby_animation_state import walk
 from entities.entity import Entity
+from kirby_animation_state.kirby_jump import Jump
 
 from kirby_animation_state.walk import Walk
 from kirby_animation_state.idle_animation import Idle
@@ -12,24 +13,23 @@ class Kirby_Entity(Entity):
         self.x = x
         self.y = y
         self.display = display
-        super().__init__(health, size, x, y, display, Walk(), self)
+        super().__init__(health, size, x, y, display, Walk(), Jump(), self)
 
     sucked_walk = Sucked_Walk()
 
     def idle(self):
-        print("no")
         idlee = Idle()
 
         idlee.start_animation(scale=3,display = self.display,x=self.x)
 
-    def sucked_walk_left(self):
+    def sucked_walk_left(self, scale = 3, walk_speed = 11):
 
-        self.sucked_walk.start_animation(scale=3, display=self.display, x = self.x, left= True)
-        self.x -= 8
-    def sucked_walk_right(self):
+        self.sucked_walk.start_animation(scale=scale, display=self.display, x = self.x, left= True, y = self.y)
+        self.x -= walk_speed
+    def sucked_walk_right(self, scale = 3, walk_speed = 11):
         global sucked_walk
-        self.sucked_walk.start_animation(scale=3, display=self.display, x=self.x, left=False)
-        self.x += 8
+        self.sucked_walk.start_animation(scale=scale, display=self.display, x=self.x, left=False, y = self.y)
+        self.x += walk_speed
     def suck(self):
         #play suck animaion at kirby
         #move kirby back

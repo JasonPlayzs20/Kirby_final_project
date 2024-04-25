@@ -1,4 +1,4 @@
-from kirby_animation_state.Animation import SpriteSheet
+from Animation import SpriteSheet
 
 
 class Kirby(SpriteSheet):
