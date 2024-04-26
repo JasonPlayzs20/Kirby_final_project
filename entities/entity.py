@@ -1,4 +1,5 @@
 import math
+import time
 
 import pygame
 
@@ -18,17 +19,18 @@ class Entity:
         self.jump_c = 10
         self.left = False
         self.jumping = False
-    def go_left(self):
+    def go_left(self, animation = True):
         self.left = True
-        print(self.x)
         self.walk_animation.set_left(True)
-        self.walk_animation.start_animation(3,self.display, x=self.x, y = self.y)
+        if animation:
+            self.walk_animation.start_animation(3,self.display, x=self.x, y = self.y)
         self.x -= 4
 
-    def go_right(self):
+    def go_right(self, animation = True):
         self.left = False
         self.walk_animation.set_left(False)
-        self.walk_animation.start_animation(3,self.display, x=self.x, y = self.y)
+        if animation:
+            self.walk_animation.start_animation(3,self.display, x=self.x, y = self.y)
         self.x += 11
     def get_image(self, frame, scale, width, height, sheet):
         image = pygame.Surface((width, height), pygame.SRCALPHA).convert_alpha()
@@ -41,7 +43,8 @@ class Entity:
         return image
     def jump(self, height):
         self.jumping = True
-        while self.jumping == True:
+        if self.jumping == True:
+            print(self.x)
             self.clock.tick(10)
             self.jump_animation.set_left(self.left)
             if self.jump_c >= -10:
@@ -63,6 +66,7 @@ class Entity:
                 self.display.blit(image,(self.x,self.y))
                 pygame.display.update()
                 print("yes")
+                time.sleep(0.2)
                 self.jump_c = 10
                 self.jumping = False
             self.display.fill((50, 70, 50))

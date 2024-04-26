@@ -25,13 +25,13 @@ class Kirby_Entity(Entity):
     def sucked_walk_left(self, scale = 3, walk_speed = 11):
         self.sucked_walk.set_left(True)
         self.left = True
-        self.sucked_walk.start_animation(scale=scale, display=self.display, x = self.x, y = self.y)
+        self.sucked_walk.start_animation(scale=scale, display=self.display, x = self.x, y = self.y-18)
         self.x -= walk_speed
     def sucked_walk_right(self, scale = 3, walk_speed = 11):
         global sucked_walk
         self.sucked_walk.set_left(False)
         self.left = False
-        self.sucked_walk.start_animation(scale=scale, display=self.display, x=self.x, y = self.y)
+        self.sucked_walk.start_animation(scale=scale, display=self.display, x=self.x, y = self.y-15)
         self.x += walk_speed
     def suck(self):
         #play suck animaion at kirby

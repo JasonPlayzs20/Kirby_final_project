@@ -1,4 +1,5 @@
 import sys
+import time
 
 import pygame
 
@@ -26,7 +27,7 @@ walk = Walk()
 kirby = Kirby_Entity(20, 7, 0, 200, display) #SCALE NOT WORK
 tick = 0
 while run:
-    clock.tick(10)
+    clock.tick(11)
     display.fill(BG)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -34,30 +35,24 @@ while run:
             pygame.quit()
             sys.exit(69)
     print("max is gay")
-
-
-
-
-    # kirby.jump(2)
-
-
-
-    # walk.start_animation(3, display)
-    # kirby.go_right()
-    if kirby.jumping == True:
-        continue
+    print(tick)
     if tick < 21:
-        # kirby.go_right()
-        kirby.go_right()
-        print(kirby.left)
+        kirby.jump(2)
+        print(kirby.jumping)
+        if kirby.jumping == True:
+            print("yesed")
+            kirby.go_right(animation=False)
+
+
     if tick > 21:
-        # kirby.go_left()
         kirby.sucked_walk_left()
         print(kirby.left)
     if tick > 40:
         tick = 0
         if kirby.jumping == False:
             kirby.jump(2)
+            continue
+
     tick +=1
 
     # kirby.idle()
