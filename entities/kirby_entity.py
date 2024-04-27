@@ -1,3 +1,5 @@
+import pygame.display
+
 from kirby_animation_state import walk
 from entities.entity import Entity
 from kirby_animation_state.kirby_jump import Jump
@@ -13,15 +15,16 @@ class Kirby_Entity(Entity):
         self.x = x
         self.y = y
         self.display = display
+        self.sucked = False
         super().__init__(health, size, x, y, display, Walk(), Jump(), self)
 
     sucked_walk = Sucked_Walk()
-
+    idlee = Idle()
     def idle(self):
-        idlee = Idle()
-
-        idlee.start_animation(scale=3,display = self.display,x=self.x)
-
+        global idlee
+        image = self.get_image(0, 3, width=24, height=21, sheet="kirby_animation_state/kirby_jump.png")
+        self.display.blit(image, (self.x, self.y))
+        pygame.display.update()
     def sucked_walk_left(self, scale = 3, walk_speed = 11):
         self.sucked_walk.set_left(True)
         self.left = True
@@ -44,5 +47,4 @@ class Kirby_Entity(Entity):
     def fly(self):
         pass
 
-    def idle(self):
-        pass
+

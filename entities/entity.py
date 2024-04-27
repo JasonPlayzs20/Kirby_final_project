@@ -24,7 +24,7 @@ class Entity:
         self.walk_animation.set_left(True)
         if animation:
             self.walk_animation.start_animation(3,self.display, x=self.x, y = self.y)
-        self.x -= 4
+        self.x -= 11
 
     def go_right(self, animation = True):
         self.left = False
@@ -45,7 +45,7 @@ class Entity:
         self.jumping = True
         if self.jumping == True:
             print(self.x)
-            self.clock.tick(10)
+            self.clock.tick(25)
             self.jump_animation.set_left(self.left)
             if self.jump_c >= -10:
                 neg = 1
@@ -58,7 +58,7 @@ class Entity:
                 else:
                     self.display.blit(image, (self.x, self.y))
                 self.y -=(self.jump_c**2)/height*neg
-                self.jump_c-=1
+                self.jump_c-=2
                 pygame.display.update()
 
             else:

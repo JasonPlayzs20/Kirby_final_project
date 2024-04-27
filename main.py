@@ -35,24 +35,20 @@ while run:
             pygame.quit()
             sys.exit(69)
     print("max is gay")
-    print(tick)
-    if tick < 21:
+    active = False
+    keys = pygame.key.get_pressed()
+    if kirby.jumping == True:
         kirby.jump(2)
-        print(kirby.jumping)
-        if kirby.jumping == True:
-            print("yesed")
-            kirby.go_right(animation=False)
-
-
-    if tick > 21:
-        kirby.sucked_walk_left()
-        print(kirby.left)
-    if tick > 40:
-        tick = 0
+        active = True
+    elif keys[pygame.K_UP]:
         if kirby.jumping == False:
             kirby.jump(2)
-            continue
-
-    tick +=1
-
-    # kirby.idle()
+            active = True
+    if keys[pygame.K_LEFT]:
+        kirby.go_left(not kirby.jumping)
+        active = True
+    elif keys[pygame.K_RIGHT]:
+        kirby.go_right(not kirby.jumping)
+        active = True
+    if active is not True:
+        kirby.idle()
