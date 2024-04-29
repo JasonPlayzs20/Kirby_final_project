@@ -34,13 +34,12 @@ while run:
             run = False
             pygame.quit()
             sys.exit(69)
-    print("max is gay")
     active = False
     keys = pygame.key.get_pressed()
     if kirby.jumping == True:
         kirby.jump(2)
         active = True
-    elif keys[pygame.K_UP]:
+    elif keys[pygame.K_LALT]:
         if kirby.jumping == False:
             kirby.jump(2)
             active = True

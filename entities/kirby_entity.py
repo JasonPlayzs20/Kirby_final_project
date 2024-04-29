@@ -1,3 +1,5 @@
+import time
+
 import pygame.display
 
 from kirby_animation_state import walk
@@ -45,5 +47,31 @@ class Kirby_Entity(Entity):
 
     def fly(self):
         pass
+    def jump(self, height):
+        self.jumping = True
+        if self.jumping == True:
+            self.clock.tick(25)
+            self.jump_animation.set_left(self.left)
+            if self.jump_c >= -10:
+                neg = 1
+                image = self.get_image(0, 3, width=24, height=21, sheet="kirby_animation_state/kirby_jump.png")
 
+
+                if self.jump_c < 0:
+                    neg = -1
+                    self.jump_animation.start_animation(3, self.display, x=self.x, y=self.y)
+                else:
+                    self.display.blit(image, (self.x, self.y))
+                self.y -=(self.jump_c**2)/height*neg
+                self.jump_c-=2
+                pygame.display.update()
+
+            else:
+                image = self.get_image(9, 3, width=24, height=21, sheet="kirby_animation_state/kirby_jump.png")
+                self.display.blit(image,(self.x,self.y))
+                pygame.display.update()
+                time.sleep(0.2)
+                self.jump_c = 10
+                self.jumping = False
+            self.display.fill((50, 70, 50))
 
