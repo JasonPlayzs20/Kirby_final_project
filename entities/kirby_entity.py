@@ -20,11 +20,10 @@ class Kirby_Entity(Entity):
 
     sucked_walk = Sucked_Walk()
     idlee = Idle()
-    def idle(self):
+    def idle(self, scale = 3):
         global idlee
-        image = self.get_image(0, 3, width=24, height=21, sheet="kirby_animation_state/kirby_jump.png")
-        self.display.blit(image, (self.x, self.y))
-        pygame.display.update()
+        self.idlee.set_left(self.left)
+        self.idlee.start_animation(scale,self.display,self.x,self.y+7)
     def sucked_walk_left(self, scale = 3, walk_speed = 11):
         self.sucked_walk.set_left(True)
         self.left = True
