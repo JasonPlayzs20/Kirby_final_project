@@ -1,7 +1,6 @@
 Bug-Fix #1.0.0
 Jumping animation is no longer partially cut off
 
-
 Alpha V1.1.3
 Changed Jumping to the Left Alt/Option key
 

@@ -9,6 +9,7 @@ from kirby_animation_state.kirby_jump import Jump
 from kirby_animation_state.walk import Walk
 from kirby_animation_state.idle_animation import Idle
 from kirby_animation_state.sucked_walk import Sucked_Walk
+from kirby_animation_state.suck_to_fly import Suck_To_Fly
 
 class Kirby_Entity(Entity):
     def __init__(self, health, size, x, y, display):
@@ -22,6 +23,7 @@ class Kirby_Entity(Entity):
 
     sucked_walk = Sucked_Walk()
     idlee = Idle()
+    suck_fly_class = Suck_To_Fly()
     def idle(self, scale = 3):
         global idlee
         self.idlee.set_left(self.left)
@@ -44,6 +46,9 @@ class Kirby_Entity(Entity):
 
     def spit_out(self):
         pass
+    def suck_fly(self):
+        self.suck_fly_class.set_left(self.left)
+        self.suck_fly_class.start_animation(scale=3,display=self.display,x=self.x,y = self.y-8)
 
     def fly(self):
         pass

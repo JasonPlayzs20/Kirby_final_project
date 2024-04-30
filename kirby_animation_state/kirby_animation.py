@@ -2,7 +2,7 @@ from Animation import SpriteSheet
 
 
 class Kirby(SpriteSheet):
-    def __init__(self, image, frames, width, height, scale, colour, running, total_frame, left):
+    def __init__(self, image: object, frames: object, width: object, height: object, scale: object, colour: object, running: object, total_frame: object, left: object) -> object:
         super().__init__(image, frames, width, height, scale, colour, running, total_frame,left)
 
     # def get_image(self, frame,scale):

@@ -43,6 +43,9 @@ while run:
         if kirby.jumping == False:
             kirby.jump(2)
             active = True
+    if keys[pygame.K_UP]:
+        active = True
+        kirby.suck_fly()
     if keys[pygame.K_LEFT]:
         kirby.go_left(not kirby.jumping)
         active = True
