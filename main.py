@@ -24,7 +24,7 @@ frame = 0
 # sprite_sheet = Animation.SpriteSheet(sprite_sheet_image)
 # idle = Idle()
 walk = Walk()
-kirby = Kirby_Entity(20, 7, 0, 200, display) #SCALE NOT WORK
+kirby = Kirby_Entity(20, 3, 0, 200, display) #SCALE NOT WORK
 tick = 0
 while run:
     clock.tick(11)
@@ -36,6 +36,7 @@ while run:
             sys.exit(69)
     active = False
     keys = pygame.key.get_pressed()
+
     if kirby.jumping == True:
         kirby.jump(2)
         active = True

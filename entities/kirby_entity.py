@@ -19,6 +19,7 @@ class Kirby_Entity(Entity):
         self.y = y
         self.display = display
         self.sucked = False
+        self.flying = False
         super().__init__(health, size, x, y, display, Walk(), Jump(), self)
 
     sucked_walk = Sucked_Walk()
@@ -47,8 +48,13 @@ class Kirby_Entity(Entity):
     def spit_out(self):
         pass
     def suck_fly(self):
+        if self.flying == True: return
+        self.flying = False
         self.suck_fly_class.set_left(self.left)
-        self.suck_fly_class.start_animation(scale=3,display=self.display,x=self.x,y = self.y-8)
+        self.suck_fly_class.start_animation(scale=self.size,display=self.display,x=self.x,y = self.y-8)
+        if self.suck_fly_class.frames == 3:
+            self.flying = True
+            print("flying")
 
     def fly(self):
         pass
@@ -59,7 +65,7 @@ class Kirby_Entity(Entity):
             self.jump_animation.set_left(self.left)
             if self.jump_c >= -10:
                 neg = 1
-                image = self.get_image(0, 3, width=24, height=21, sheet="kirby_animation_state/kirby_jump.png")
+                image = self.get_image(0, self.size, width=24, height=21, sheet="kirby_animation_state/kirby_jump.png")
 
 
                 if self.jump_c < 0:
@@ -72,7 +78,7 @@ class Kirby_Entity(Entity):
                 pygame.display.update()
 
             else:
-                image = self.get_image(9, 3, width=24, height=21, sheet="kirby_animation_state/kirby_jump.png")
+                image = self.get_image(9, self.size, width=24, height=21, sheet="kirby_animation_state/kirby_jump.png")
                 self.display.blit(image,(self.x,self.y))
                 pygame.display.update()
                 time.sleep(0.2)
