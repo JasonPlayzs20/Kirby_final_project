@@ -18,13 +18,55 @@ clock = pygame.time.Clock()
 BG = (50, 70, 50)
 BLACK = (255, 255, 255)
 sprite_sheet_image = pygame.image.load("d4pnix0-4054eedb-e686-4e39-96c1-227b7c246bbf (2) - Copy.png").convert_alpha()
-
+animation = True
 run = True
 frame = 0
-# sprite_sheet = Animation.SpriteSheet(sprite_sheet_image)
-# idle = Idle()
+def keys_update():
+    global animation
+    active = False
+
+    keys = pygame.key.get_pressed()
+
+    if kirby.jumping == True:
+        kirby.jump(2)
+        active = True
+        animation = False
+    elif keys[pygame.K_LALT]:
+        if kirby.jumping == False:
+            animation = False
+            kirby.jump(2)
+            active = True
+        else:
+            animation = True
+    if keys[pygame.K_UP]:
+        animation = False
+        active = True
+        if kirby.flying == False:
+            kirby.suck_fly()
+        else:
+            kirby.fly_up()
+    if keys[pygame.K_LEFT]:
+        if kirby.flying == True:
+            kirby.fly_idle()
+            kirby.go_left(False)
+        else:
+            kirby.go_left(animation)
+        active = True
+    elif keys[pygame.K_RIGHT]:
+        if kirby.flying == True:
+            kirby.fly_idle()
+            kirby.go_right(False)
+        else:
+            kirby.go_right(animation)
+        active = True
+    if active is not True:
+        if kirby.flying == False:
+            kirby.idle()
+        else:
+            kirby.fly_idle()
+
 walk = Walk()
-kirby = Kirby_Entity(20, 3, 0, 200, display) #SCALE NOT WORK
+kirby = Kirby_Entity(20, 3, 0, 200, display)  # SCALE NOT WORK
 tick = 0
 while run:
     clock.tick(11)
@@ -34,24 +76,4 @@ while run:
             run = False
             pygame.quit()
             sys.exit(69)
-    active = False
-    keys = pygame.key.get_pressed()
-
-    if kirby.jumping == True:
-        kirby.jump(2)
-        active = True
-    elif keys[pygame.K_LALT]:
-        if kirby.jumping == False:
-            kirby.jump(2)
-            active = True
-    if keys[pygame.K_UP]:
-        active = True
-        kirby.suck_fly()
-    if keys[pygame.K_LEFT]:
-        kirby.go_left(not kirby.jumping)
-        active = True
-    elif keys[pygame.K_RIGHT]:
-        kirby.go_right(not kirby.jumping)
-        active = True
-    if active is not True:
-        kirby.idle()
+    keys_update()

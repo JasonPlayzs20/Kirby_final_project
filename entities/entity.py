@@ -6,6 +6,7 @@ import pygame
 
 class Entity:
     clock = pygame.time.Clock()
+
     def __init__(self, health, size, x, y, display, walk_animation, jump_animation, entity_class):
         self.health = health
         self.size = size
@@ -19,41 +20,33 @@ class Entity:
         self.jump_c = 10
         self.left = False
         self.jumping = False
-    def go_left(self, animation = True):
+
+    def go_left(self, animation=True):
         self.left = True
         self.walk_animation.set_left(True)
         if animation:
-            self.walk_animation.start_animation(3,self.display, x=self.x, y = self.y)
+            self.walk_animation.start_animation(3, self.display, x=self.x, y=self.y)
         self.x -= 11
+        pygame.display.update()
 
-    def go_right(self, animation = True):
+    def go_right(self, animation=True):
         self.left = False
         self.walk_animation.set_left(False)
         if animation:
-            self.walk_animation.start_animation(3,self.display, x=self.x, y = self.y)
+            self.walk_animation.start_animation(3, self.display, x=self.x, y=self.y)
         self.x += 11
+        pygame.display.update()
+
+
     def get_image(self, frame, scale, width, height, sheet):
         image = pygame.Surface((width, height), pygame.SRCALPHA).convert_alpha()
         image.blit(pygame.image.load(sheet).convert_alpha(), (0, 0),
                    ((frame * width), 0, width, height))
         image = pygame.transform.scale(image, (width * scale, height * scale))
         if self.left == True:
-            image = pygame.transform.flip(image,True,False)
-        image.set_colorkey((255,255,255))
+            image = pygame.transform.flip(image, True, False)
+        image.set_colorkey((255, 255, 255))
         return image
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         # global tempy
         # # self.y = math.floor(self.y)
@@ -88,4 +81,3 @@ class Entity:
         #     # print("go down?")
         #     print(self.y,"self.y")
         #     self.y += 31
-
