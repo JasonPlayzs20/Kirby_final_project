@@ -20,11 +20,11 @@ class Entity:
         self.jump_c = 10
         self.left = False
         self.jumping = False
-
+        self.animation = True
     def go_left(self, animation=True):
         self.left = True
         self.walk_animation.set_left(True)
-        if animation:
+        if self.animation:
             self.walk_animation.start_animation(3, self.display, x=self.x, y=self.y)
         self.x -= 11
         pygame.display.update()
@@ -32,7 +32,7 @@ class Entity:
     def go_right(self, animation=True):
         self.left = False
         self.walk_animation.set_left(False)
-        if animation:
+        if self.animation:
             self.walk_animation.start_animation(3, self.display, x=self.x, y=self.y)
         self.x += 11
         pygame.display.update()

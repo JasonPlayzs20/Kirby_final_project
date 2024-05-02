@@ -22,9 +22,9 @@ animation = True
 run = True
 frame = 0
 def keys_update():
-    global animation
+    global animation, fly
     active = False
-
+    fly = False
     keys = pygame.key.get_pressed()
 
     if kirby.jumping == True:
@@ -41,29 +41,33 @@ def keys_update():
     if keys[pygame.K_UP]:
         animation = False
         active = True
-        if kirby.flying == False:
+        if not kirby.flying:
             kirby.suck_fly()
         else:
             kirby.fly_up()
+            fly = True
     if keys[pygame.K_LEFT]:
-        if kirby.flying == True:
-            kirby.fly_idle()
+        if kirby.flying:
+            if not fly:
+                kirby.fly_idle()
             kirby.go_left(False)
         else:
-            kirby.go_left(animation)
+            kirby.go_left()
         active = True
     elif keys[pygame.K_RIGHT]:
-        if kirby.flying == True:
-            kirby.fly_idle()
+        if kirby.flying:
+            if not fly:
+                kirby.fly_idle()
             kirby.go_right(False)
         else:
-            kirby.go_right(animation)
+            kirby.go_right()
         active = True
     if active is not True:
         if kirby.flying == False:
             kirby.idle()
         else:
             kirby.fly_idle()
+            kirby.y += 3
 
 walk = Walk()
 kirby = Kirby_Entity(20, 3, 0, 200, display)  # SCALE NOT WORK
@@ -77,3 +81,4 @@ while run:
             pygame.quit()
             sys.exit(69)
     keys_update()
+

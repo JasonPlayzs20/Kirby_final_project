@@ -55,6 +55,7 @@ class Kirby_Entity(Entity):
     def suck_fly(self):
         if self.flying == True: return
         self.flying = False
+        self.animation = False
         self.suck_fly_class.set_left(self.left)
         self.suck_fly_class.start_animation(scale=self.size, display=self.display, x=self.x, y=self.y - 8)
         if self.suck_fly_class.frames == 3:
@@ -62,16 +63,19 @@ class Kirby_Entity(Entity):
 
     def fly_idle(self):
         self.flying = True
+        self.animation = False
         self.suck_idle_fly_class.set_left(self.left)
         self.suck_idle_fly_class.start_animation(scale=self.size, display=self.display, x=self.x, y=self.y - 18)
     def fly_up(self):
         self.flying = True
+        self.animation = False
         self.flapping_class.set_left(self.left)
         self.flapping_class.start_animation(scale=self.size, display=self.display, x=self.x+8, y=self.y-18)
         self.y -= 10
 
     def jump(self, height):
         self.jumping = True
+        self.animation = False
         if self.jumping == True:
             self.clock.tick(25)
             self.jump_animation.set_left(self.left)
@@ -95,4 +99,5 @@ class Kirby_Entity(Entity):
                 time.sleep(0.2)
                 self.jump_c = 10
                 self.jumping = False
-            self.display.fill((50, 70, 50))
+                self.animation = True
+            # self.display.fill((50, 70, 50))
