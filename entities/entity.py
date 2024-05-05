@@ -21,6 +21,7 @@ class Entity:
         self.left = False
         self.jumping = False
         self.animation = True
+        self.gravity = 8
     def go_left(self, animation=True):
         self.left = True
         self.walk_animation.set_left(True)
