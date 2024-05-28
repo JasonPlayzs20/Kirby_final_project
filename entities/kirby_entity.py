@@ -107,6 +107,7 @@ class Kirby_Entity(Entity):
 
     def keys_update(self):
         active = False
+
         keys = pygame.key.get_pressed()
         # jumping
         if self.jumping:
