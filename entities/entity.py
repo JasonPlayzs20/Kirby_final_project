@@ -48,37 +48,3 @@ class Entity:
             image = pygame.transform.flip(image, True, False)
         image.set_colorkey((255, 255, 255))
         return image
-
-        # global tempy
-        # # self.y = math.floor(self.y)
-        # print(str(self.down) + " self.down")
-        # # if self.y == self.tempy-height and self.down == False: #+1
-        # #     #start down
-        # #     self.down = True
-        # # elif self.y >= self.tempy:
-        # #     #stop down
-        # #     self.down = False
-        #
-        #
-        # if self.y >= self.tempy and self.down == True:
-        #     self.down = False
-        # elif self.y == self.tempy-height and self.down == False:
-        #     self.down = True
-        #
-        #     # print("setted")
-        # if self.y >= self.tempy - height and self.down == False:
-        #     image = self.get_image(0, 3, left=False, width=24, height=21, sheet="kirby_animation_state/kirby_jump.png")
-        #     self.display.blit(image, (self.x, self.y))
-        #     pygame.display.update()
-        #     # print("go up?")
-        #     print(self.y,"self.y")
-        #     if self.y < self.tempy - height + 20:
-        #         distance_to_target = abs((self.tempy - height) - self.y)
-        #         self.y -= round(abs((distance_to_target+5)/4))
-        #     else:
-        #         self.y -= 10
-        # else:
-        #     self.jump_animation.start_animation(3, self.display, x=self.x, y=self.y)
-        #     # print("go down?")
-        #     print(self.y,"self.y")
-        #     self.y += 31

@@ -19,7 +19,9 @@ size = window.get_size()
 
 moving_object = SpriteObject(0, 0, 50, 50, (128, 0, 255))
 static_objects = [
-    SpriteObject(size[0] // 2, size[1] // 3, 100, 50, (128, 128, 128))
+    SpriteObject(size[0] // 2, size[1] // 3, 100, 50, (128, 128, 128)),
+    SpriteObject(size[0] // 2+100, size[1] // 3, 100, 50, (128, 128, 128)),
+    SpriteObject(size[0] // 2, size[1] // 3+100, 100, 50, (128, 128, 128))
 ]
 all_sprites = pygame.sprite.Group([moving_object] + static_objects)
 static_sprites = pygame.sprite.Group(static_objects)
