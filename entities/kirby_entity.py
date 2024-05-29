@@ -19,6 +19,8 @@ class Kirby_Entity(Entity):
         self.sucked = False
         self.flying = False
         self.flapping = False
+        self.level = 1
+        self.page = 1
         super().__init__(health, size, x, y, display, Walk(), Jump(), self)
 
     sucked_walk = Sucked_Walk()

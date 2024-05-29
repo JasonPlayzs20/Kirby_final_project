@@ -1,8 +1,10 @@
 import pygame.display
 
+from levels.level import Level
+
 
 class Background:
-    def __init__(self, background_image, current_x, portview_image, portview_x,display):
+    def __init__(self, background_image, current_x, portview_image, portview_x, display):
         self.background_image = background_image
         self.current_x = current_x
         self.portview_image = portview_image

@@ -13,7 +13,7 @@ pygame.init()
 screen_h = 500
 screen_w = 500
 display = pygame.display.set_mode((screen_h, screen_w))
-pygame.display.set_caption("Max is gay")
+pygame.display.set_caption("why is kirby")
 clock = pygame.time.Clock()
 
 BG = (50, 70, 50)
