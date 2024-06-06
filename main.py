@@ -22,7 +22,7 @@ sprite_sheet_image = pygame.image.load("d4pnix0-4054eedb-e686-4e39-96c1-227b7c24
 animation = True
 run = True
 frame = 0
-# background = Background("")
+background = Background(0,0,0,0,0)
 kirby = Kirby_Entity(20, 3, 0, 200, display)  # SCALE NOT WORK
 tick = 0
 while run:

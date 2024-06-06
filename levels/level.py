@@ -11,7 +11,8 @@ class Level:
         if section > self.total_selections: return False
         section -= 1
         image = pygame.Surface((self.level_data[section], 500),pygame.SRCALPHA).convert_alpha()
-        image.blit(pygame.image.load(self.image).convert_alpha(),(0,0),(self.level_data[section],0,self.level_data[section],500))
+        image.blit(pygame.image.load(self.image).convert_alpha(),(0,0),(0,0,self.level_data[section],500))
         image.set_colorkey((255,255,255))
         return image
 
+#note: FIX THIS CODE RN YOU
