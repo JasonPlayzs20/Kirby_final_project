@@ -1,3 +1,9 @@
+Backdrop V1.0.0
+Created Level loading code
+
+TEST V5.4.2
+Tried to get Collision working
+
 Bug-Fix #1.0.0
 Jumping animation is no longer partially cut off
 
