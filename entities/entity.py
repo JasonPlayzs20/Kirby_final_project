@@ -22,12 +22,17 @@ class Entity:
         self.jumping = False
         self.animation = True
         self.gravity = 8
+        self.distance = -500
+    def get_distance(self):
+        return self.distance
     def go_left(self, animation=True):
         self.left = True
         self.walk_animation.set_left(True)
         if self.animation:
             self.walk_animation.start_animation(3, self.display, x=self.x, y=self.y)
-        self.x -= 11
+        if self.distance < 0:
+            self.x -= 11
+        self.distance -= 11
         pygame.display.update()
 
     def go_right(self, animation=True):
@@ -35,7 +40,10 @@ class Entity:
         self.walk_animation.set_left(False)
         if self.animation:
             self.walk_animation.start_animation(3, self.display, x=self.x, y=self.y)
-        self.x += 11
+        if self.distance < 0:
+            self.x += 11
+        self.distance += 11
+
         pygame.display.update()
 
 

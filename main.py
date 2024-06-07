@@ -10,8 +10,8 @@ from others.background import Background
 
 pygame.init()
 
-screen_h = 500
-screen_w = 500
+screen_h = 1080
+screen_w = 700
 display = pygame.display.set_mode((screen_h, screen_w))
 pygame.display.set_caption("why is kirby")
 clock = pygame.time.Clock()
@@ -22,8 +22,9 @@ sprite_sheet_image = pygame.image.load("d4pnix0-4054eedb-e686-4e39-96c1-227b7c24
 animation = True
 run = True
 frame = 0
-background = Background(0,0,0,0,0)
-kirby = Kirby_Entity(20, 3, 0, 200, display)  # SCALE NOT WORK
+
+kirby = Kirby_Entity(20, 3, 0, 484, display)  # SCALE NOT WORK
+background = Background(0,0,display,kirby,5.2)
 tick = 0
 while run:
     clock.tick(11)
@@ -33,5 +34,6 @@ while run:
             run = False
             pygame.quit()
             sys.exit(69)
+    background.register_background()
     kirby.keys_update()
 

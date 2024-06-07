@@ -7,12 +7,14 @@ class Level:
         self.total_selections = total_sections
         self.level_data = level_data #different scetions cords/others
 
-    def get_background(self,section):
-        if section > self.total_selections: return False
+    def get_level(self, section,size):
+        if section > self.total_selections:
+            return None  # Return None instead of False
         section -= 1
-        image = pygame.Surface((self.level_data[section], 500),pygame.SRCALPHA).convert_alpha()
-        image.blit(pygame.image.load(self.image).convert_alpha(),(0,0),(0,0,self.level_data[section],500))
-        image.set_colorkey((255,255,255))
+        image = pygame.Surface((self.level_data[section], 500), pygame.SRCALPHA).convert_alpha()
+        image.blit(pygame.image.load(self.image).convert_alpha(), (-50, 0), (0, 0, self.level_data[section], 500))
+        image= pygame.transform.scale(image, (self.level_data[section]*size, 500*size))
+        image.set_colorkey((255, 255, 255))
         return image
 
-#note: FIX THIS CODE RN YOU
+
