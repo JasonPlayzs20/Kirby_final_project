@@ -13,19 +13,28 @@ class Background:
         self.display = display
         self.size = size
         self.kirby = kirby
-        self.distance = 0
-
-    def get_bg(self,number, chamber):
-        classes = {1: Level1()}
-
-        return getattr(classes.get(number, lambda x: None), 'get_level', lambda x: None)(chamber,self.size)
+        self.background_distance = 0
+        self.classes = {1: Level1()}
+        self.level = self.kirby.level
+        self.chamber = self.kirby.chamber
 
 
+    def get_bg(self,level, chamber):
+
+        return self.classes[level].get_level(chamber)
+
+    def get_level_endline(self,level,chamber):
+        level_last = self.classes[level].get_levels()[chamber]
+        endline = level_last*5.2-700
+        return endline
     def register_background(self):
-        self.distance = self.kirby.get_distance()
-        if self.kirby.get_distance() < 0:
-            self.distance = 0
-        self.display.blit(self.get_bg(1,1),(-self.distance,0))
+        self.background_distance = self.kirby.get_global_x()-500
+        if self.kirby.get_global_x() < 500:
+            self.background_distance = 0
+        if self.kirby.get_global_x() > self.get_level_endline(self.level,self.chamber):
+            self.background_distance = self.get_level_endline(self.level,self.chamber)-500
+
+        self.display.blit(self.get_bg(self.level,self.chamber),(-self.background_distance,0))
         # self.display.blit(self.get_image(self.portview_image,500,500,self.portview_x,(0,0,0)))
         # pygame.display.update()
 '''

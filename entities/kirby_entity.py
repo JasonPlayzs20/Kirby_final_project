@@ -21,7 +21,9 @@ class Kirby_Entity(Entity):
         self.flapping = False
         self.level = 1
         self.page = 1
-        super().__init__(health, size, x, y, display, Walk(), Jump(), self)
+        self.level = 1
+        self.chamber = 1
+        super().__init__(health, size, x, y, display,self.level,self.chamber, Walk(), Jump(), self)
 
     sucked_walk = Sucked_Walk()
     idlee = Idle()
@@ -109,7 +111,7 @@ class Kirby_Entity(Entity):
 
     def keys_update(self):
         active = False
-
+        self.flapping = False
         keys = pygame.key.get_pressed()
         # jumping
         if self.jumping:

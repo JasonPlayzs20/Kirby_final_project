@@ -26,6 +26,8 @@ frame = 0
 kirby = Kirby_Entity(20, 3, 0, 484, display)  # SCALE NOT WORK
 background = Background(0,0,display,kirby,5.2)
 tick = 0
+# kirby.distance = 9000
+
 while run:
     clock.tick(11)
     display.fill(BG)

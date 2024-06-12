@@ -3,11 +3,13 @@ import time
 
 import pygame
 
+from levels.level1 import Level1
+
 
 class Entity:
     clock = pygame.time.Clock()
 
-    def __init__(self, health, size, x, y, display, walk_animation, jump_animation, entity_class):
+    def __init__(self, health, size, x, y, display, level,chamber, walk_animation, jump_animation, entity_class):
         self.health = health
         self.size = size
         self.x = x
@@ -22,17 +24,28 @@ class Entity:
         self.jumping = False
         self.animation = True
         self.gravity = 8
-        self.distance = -500
-    def get_distance(self):
-        return self.distance
+        self.global_x = 0
+        self.level = level
+        self.chamber = chamber
+
+    def get_level_endline(self, level, chamber):
+        classes = {1: Level1()}
+        level_list = getattr(classes.get(level, lambda x: None), 'get_levels', lambda x: None)
+        level_last = level_list()[chamber]
+        endline = level_last*5.2-700
+        return endline
+    def get_global_x(self):
+        return self.global_x
     def go_left(self, animation=True):
         self.left = True
         self.walk_animation.set_left(True)
         if self.animation:
             self.walk_animation.start_animation(3, self.display, x=self.x, y=self.y)
-        if self.distance < 0:
+        if self.global_x < 500:
             self.x -= 11
-        self.distance -= 11
+        if self.get_global_x() > self.get_level_endline(self.level, self.chamber):
+            self.x -= 11
+        self.global_x -= 11
         pygame.display.update()
 
     def go_right(self, animation=True):
@@ -40,9 +53,12 @@ class Entity:
         self.walk_animation.set_left(False)
         if self.animation:
             self.walk_animation.start_animation(3, self.display, x=self.x, y=self.y)
-        if self.distance < 0:
+        if self.global_x < 500:
             self.x += 11
-        self.distance += 11
+        if self.get_global_x() > self.get_level_endline(self.level, self.chamber):
+            self.x += 11
+        self.global_x += 11
+        # print(self.distance)
 
         pygame.display.update()
 

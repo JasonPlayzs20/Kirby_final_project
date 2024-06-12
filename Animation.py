@@ -21,8 +21,7 @@ class SpriteSheet():
 
     def get_image(self, frame, scale):
         image = pygame.Surface((self.width, self.height), pygame.SRCALPHA).convert_alpha()
-        image.blit(pygame.image.load(self.sheet).convert_alpha(), (0, 0),
-                   ((frame * self.width), 0, self.width, self.height))
+        image.blit(pygame.image.load(self.sheet).convert_alpha(), (0, 0),((frame * self.width), 0, self.width, self.height))
         image = pygame.transform.scale(image, (self.width * scale, self.height * scale))
         if self.left == True:
             image = pygame.transform.flip(image, True, False)
