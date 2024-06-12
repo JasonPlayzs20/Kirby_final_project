@@ -114,15 +114,18 @@ class Kirby_Entity(Entity):
         self.flapping = False
         keys = pygame.key.get_pressed()
         # jumping
+        if not self.jumping:
+            self.animation = True
         if self.jumping:
             self.jump(2)
             active = True
+            self.animation = False
         elif keys[pygame.K_LALT]:
             if not self.jumping:
                 self.jump(2)
                 active = True
             else:
-                self.animation = True
+                self.animation = False
         # start flying
         if keys[pygame.K_UP]:
             active = True
@@ -135,18 +138,22 @@ class Kirby_Entity(Entity):
             if self.flying:
                 if not self.flapping:
                     self.fly_idle()
-                self.go_left(False)
+                    self.go_left(False)
+                else:
+                    self.go_left(False)
             else:
-                self.go_left()
+                self.go_left(self.animation)
             active = True
         # right
         elif keys[pygame.K_RIGHT]:
             if self.flying:
                 if not self.flapping:
                     self.fly_idle()
-                self.go_right(False)
+                    self.go_right(False)
+                else:
+                    self.go_right(False)
             else:
-                self.go_right()
+                self.go_right(self.animation)
             active = True
         # idles
         if active is not True:
