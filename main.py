@@ -43,7 +43,7 @@ while run:
     # Calculate the top-left corner of the box
     print((background.background_distance+mouse_x)//box_size)
     # grid_x = ((-background.background_distance+mouse_x)//box_size)*box_size
-    grid_x = ((-background.background_distance+mouse_x)//box_size)*box_size+(background.background_distance+mouse_x)
+    grid_x = ((-background.background_distance+mouse_x)//box_size)*box_size+(background.background_distance//box_size)
 
     grid_y = (mouse_y // box_size) * box_size
 
