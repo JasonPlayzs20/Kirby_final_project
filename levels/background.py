@@ -4,6 +4,7 @@ from entities.kirby_entity import Kirby_Entity
 from levels.level import Level
 from entities.entity import Entity
 from levels.level1 import Level1
+from others.collision import Collision
 
 
 class Background:
@@ -17,6 +18,7 @@ class Background:
         self.classes = {1: Level1()}
         self.level = self.kirby.level
         self.chamber = self.kirby.chamber
+        self.collision = Collision(3,self.classes[self.kirby.level].map,kirby)
 
 
     def get_bg(self,level, chamber):
@@ -35,6 +37,12 @@ class Background:
             self.background_distance = self.get_level_endline(self.level,self.chamber)-500
 
         self.display.blit(self.get_bg(self.level,self.chamber),(-self.background_distance,0))
+
+    def start_collision(self):
+        self.collision.detection(self.background_distance)
+
+
+
         # self.display.blit(self.get_image(self.portview_image,500,500,self.portview_x,(0,0,0)))
         # pygame.display.update()
 '''

@@ -22,6 +22,7 @@ class Kirby_Entity(Entity):
         self.level = 1
         self.page = 1
         self.level = 1
+        self.rect = pygame.Rect(x+5,y,66,66)
         self.chamber = 1
         super().__init__(health, size, x, y, display,self.level,self.chamber, Walk(), Jump(), self)
 
@@ -62,7 +63,7 @@ class Kirby_Entity(Entity):
         self.flying = False
         self.animation = False
         self.suck_fly_class.set_left(self.left)
-        self.suck_fly_class.start_animation(scale=self.size, display=self.display, x=self.x, y=self.y - 8)
+        self.suck_fly_class.start_animation(scale=self.size, display=self.display, x=self.x-4, y=self.y - 18)
         if self.suck_fly_class.frames == 3:
             self.flying = True
 
@@ -71,13 +72,13 @@ class Kirby_Entity(Entity):
         self.flapping = False
         self.animation = False
         self.suck_idle_fly_class.set_left(self.left)
-        self.suck_idle_fly_class.start_animation(scale=self.size, display=self.display, x=self.x, y=self.y - 18)
+        self.suck_idle_fly_class.start_animation(scale=self.size, display=self.display, x=self.x-4, y=self.y - 18)
     def fly_up(self):
         self.flapping = True
         self.flying = True
         self.animation = False
         self.flapping_class.set_left(self.left)
-        self.flapping_class.start_animation(scale=self.size, display=self.display, x=self.x+8, y=self.y-18)
+        self.flapping_class.start_animation(scale=self.size, display=self.display, x=self.x+4, y=self.y-18)
         self.y -= 10
 
     def jump(self, height):
@@ -111,6 +112,8 @@ class Kirby_Entity(Entity):
 
     def keys_update(self):
         active = False
+        self.rect = pygame.Rect(self.x+6, self.y, 66, 66)
+        pygame.draw.rect(self.display, (0, 255, 0), self.rect,2)
         self.flapping = False
         keys = pygame.key.get_pressed()
         # jumping
@@ -161,4 +164,4 @@ class Kirby_Entity(Entity):
                 self.idle()
             else:
                 self.fly_idle()
-                self.y += 3
+                # self.y += 3
