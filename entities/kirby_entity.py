@@ -16,6 +16,7 @@ from kirby_animation_state.suck_to_fly import Suck_To_Fly
 
 class Kirby_Entity(Entity):
     def __init__(self, health, size, x, y, display):
+        self.side_rect = None
         self.sucked = False
         self.flying = False
         self.flapping = False
@@ -24,7 +25,7 @@ class Kirby_Entity(Entity):
         self.level = 1
         self.rect = pygame.Rect(x+5,y,66,66)
         self.chamber = 1
-        super().__init__(health, size, x, y, display,self.level,self.chamber, Walk(), Jump(), self)
+        super().__init__(health, size, x, y, display,self.level,self.chamber,self.flying, Walk(), Jump(), self)
 
     sucked_walk = Sucked_Walk()
     idlee = Idle()
@@ -41,14 +42,14 @@ class Kirby_Entity(Entity):
         self.sucked_walk.set_left(True)
         self.left = True
         self.sucked_walk.start_animation(scale=scale, display=self.display, x=self.x, y=self.y - 18)
-        self.globalx -= walk_speed
+        self.global_x -= walk_speed
 
     def sucked_walk_right(self, scale=3, walk_speed=11):
         global sucked_walk
         self.sucked_walk.set_left(False)
         self.left = False
         self.sucked_walk.start_animation(scale=scale, display=self.display, x=self.x, y=self.y - 15)
-        self.globalx += walk_speed
+        self.global_x += walk_speed
 
     def suck(self):
         # play suck animaion at kirby
@@ -112,8 +113,11 @@ class Kirby_Entity(Entity):
 
     def keys_update(self):
         active = False
-        self.rect = pygame.Rect(self.x+6, self.y, 66, 66)
-        pygame.draw.rect(self.display, (0, 255, 0), self.rect,2)
+        self.rect = pygame.Rect(self.x+20, self.y, 35, 60)
+        pygame.draw.rect(self.display, (0, 255, 0), self.rect, 2)
+        self.side_rect = pygame.Rect(self.x-4,self.y+10,80,40)
+        pygame.draw.rect(self.display,(255,255,0),self.side_rect,2)
+
         self.flapping = False
         keys = pygame.key.get_pressed()
         # jumping

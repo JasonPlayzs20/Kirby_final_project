@@ -1,6 +1,5 @@
 import pygame
 
-
 class Collision:
     def __init__(self, gravity, level_map, kirby):
         self.gravity = gravity
@@ -8,34 +7,45 @@ class Collision:
         self.kirby = kirby
         self.collision = False
 
-    def detection(self, distance):
+    def detection(self, distance,back):
         gravity = True
+        self.kirby.allow_right = True
+        self.kirby.animation = True
+        self.kirby.allow_left = True
         for y in range(len(self.level_map)):
             for x in range(len(self.level_map[y])):
                 if self.level_map[y][x] == 1:
-                    rect = pygame.Rect((x * 60) - distance, (y * 60), 60, 60)
+                    rect = pygame.Rect((x * 60) - distance, (y * 60)+15, 60, 60)
                     pygame.draw.rect(self.kirby.display, (255, 0, 0), rect, 1)
-
                     if self.kirby.rect.colliderect(rect):
-                        # Calculate overlap distances
-                        overlap_left = self.kirby.rect.right - rect.left
-                        overlap_right = rect.right - self.kirby.rect.left
-                        overlap_top = self.kirby.rect.bottom - rect.top
-                        overlap_bottom = rect.bottom - self.kirby.rect.top
-
-                        # Determine the smallest overlap
-                        min_overlap = min(overlap_left, overlap_right, overlap_top, overlap_bottom)
-
-                        if min_overlap == overlap_left:
-                            print("Collision on the Left side")
-                        elif min_overlap == overlap_right:
-                            print("Collision on the Right side")
-                        elif min_overlap == overlap_top:
-                            print("Collision on the Top side")
-                            gravity = False
-                        elif min_overlap == overlap_bottom:
-                            print("Collision on the Bottom side")
+                        # Determine collision sides
+                        if self.kirby.rect.bottom > rect.top and self.kirby.rect.bottom<rect.bottom:
+                            # print(self.kirby.rect.top, rect.top)
+                            self.kirby.y -= self.kirby.rect.bottom - rect.top - 1
                             gravity = False
 
+                        elif self.kirby.rect.top < rect.bottom and self.kirby.rect.bottom >rect.bottom:
+                            print(self.kirby.rect.top - rect.bottom-1)
+                            self.kirby.y += abs(self.kirby.rect.top - rect.bottom-1)
+
+
+
+
+                    if self.kirby.side_rect.colliderect(rect):
+                        if self.kirby.side_rect.right > rect.left and self.kirby.side_rect.right < rect.right:
+                            print(self.kirby.side_rect.right, rect.left + 13)
+
+                            self.kirby.animation = False
+                            self.kirby.allow_right = False
+                            print(self.kirby.side_rect.right - rect.left)
+
+                        elif self.kirby.side_rect.left < rect.right and self.kirby.side_rect.right > rect.right:
+                            # print(self.kirby.side_rect.right, rect.left + 13)
+                            print("left")
+                            self.kirby.animation = False
+                            self.kirby.allow_left = False
+                            # print(self.kirby.side_rect.right - rect.left)
         if gravity:
-            self.kirby.y += 5
+            if not self.kirby.flapping:
+                self.kirby.y += 5
+

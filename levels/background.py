@@ -39,7 +39,7 @@ class Background:
         self.display.blit(self.get_bg(self.level,self.chamber),(-self.background_distance,0))
 
     def start_collision(self):
-        self.collision.detection(self.background_distance)
+        self.collision.detection(self.background_distance,self)
 
 
 
