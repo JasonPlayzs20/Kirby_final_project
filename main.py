@@ -16,9 +16,9 @@ clock = pygame.time.Clock()
 BG = (50, 70, 50)
 box_color = (255, 0, 0)
 run = True
-
 kirby = Kirby_Entity(20, 3, 0, 484, display)  # SCALE NOT WORK
 background = Background(0, 0, display, kirby, 5.2)
+kirby.background = background
 box_size = 60
 
 level1 = Level1()
@@ -45,7 +45,7 @@ while run:
         #         save_level(level1.map)
 
     mouse_x, mouse_y = pygame.mouse.get_pos()
-
+    pygame.display.set_caption(f"{mouse_x},{mouse_y}")
     background_distance = background.background_distance
     grid_x = int((background_distance + mouse_x) // box_size * box_size - background_distance)
     grid_y = int(mouse_y // box_size * box_size)

@@ -1,6 +1,3 @@
-import math
-import time
-
 import pygame
 
 from kirby_animation_state.idle_animation import Idle
@@ -10,7 +7,8 @@ from levels.level1 import Level1
 class Entity:
     clock = pygame.time.Clock()
 
-    def __init__(self, health, size, x, y, display, level,chamber, flying,walk_animation, jump_animation, entity_class):
+    def __init__(self, health, size, x, y, display, level, chamber, flying, walk_animation, jump_animation,
+                 entity_class):
         self.flying = False
         self.health = health
         self.size = size
@@ -36,16 +34,19 @@ class Entity:
         classes = {1: Level1()}
         level_list = getattr(classes.get(level, lambda x: None), 'get_levels', lambda x: None)
         level_last = level_list()[chamber]
-        endline = level_last*5.2-700
+        endline = level_last * 5.2 - 700
         return endline
+
     def get_global_x(self):
         return self.global_x
 
     idlee = Idle()
+
     def idle(self, scale=3):
         global idlee
         self.idlee.set_left(self.left)
         self.idlee.start_animation(scale, self.display, self.x, self.y + 7)
+
     def go_left(self, animation=True):
         self.left = True
         self.walk_animation.set_left(True)
@@ -85,7 +86,6 @@ class Entity:
         # print(self.distance)
 
         pygame.display.update()
-
 
     def get_image(self, frame, scale, width, height, sheet):
         image = pygame.Surface((width, height), pygame.SRCALPHA).convert_alpha()
